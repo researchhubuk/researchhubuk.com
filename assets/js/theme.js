@@ -20,3 +20,38 @@ document.querySelector('#brief-form').addEventListener('submit', event => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   document.querySelector('#form-status').textContent = 'Your requirements file is ready. Send it to the Research Hub UK team through your existing contact channel. Nothing has been submitted online.';
 });
+
+// Manual navigation keeps every highlight readable without an autoplay timer.
+(() => {
+  const slider = document.querySelector('.feature-slider');
+  if (!slider) return;
+  const slides = [...slider.querySelectorAll('.feature-slide')];
+  let active = 0;
+  function showSlide(index) {
+    active = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.hidden = i !== active;
+      slide.classList.toggle('is-active', i === active);
+    });
+    slider.querySelector('.feature-count').textContent = `0${active + 1} / 0${slides.length}`;
+  }
+  slider.querySelectorAll('[data-feature-direction]').forEach(button => {
+    button.addEventListener('click', () => showSlide(active + Number(button.dataset.featureDirection)));
+  });
+  slider.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    showSlide(active + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  let touchStart;
+  slider.addEventListener('touchstart', event => {
+    touchStart = {x:event.changedTouches[0].clientX, y:event.changedTouches[0].clientY};
+  }, {passive:true});
+  slider.addEventListener('touchend', event => {
+    if (!touchStart) return;
+    const dx = event.changedTouches[0].clientX - touchStart.x;
+    const dy = event.changedTouches[0].clientY - touchStart.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) showSlide(active + (dx < 0 ? 1 : -1));
+    touchStart = null;
+  }, {passive:true});
+})();
