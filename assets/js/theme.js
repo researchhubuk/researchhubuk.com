@@ -54,3 +54,21 @@ document.querySelector('#brief-form').addEventListener('submit', event => {
     touchStart = null;
   }, {passive:true});
 })();
+
+// Reserve exactly the space occupied by the mobile announcement and header.
+(() => {
+  const header = document.querySelector('.site-header');
+  const announcement = document.querySelector('.announcement');
+  if (!header) return;
+  const updateSliderSpace = () => {
+    const occupied = header.offsetHeight + (announcement ? announcement.offsetHeight : 0);
+    document.documentElement.style.setProperty('--mobile-top-height', occupied + 'px');
+  };
+  updateSliderSpace();
+  window.addEventListener('resize', updateSliderSpace, {passive:true});
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(updateSliderSpace);
+    observer.observe(header);
+    if (announcement) observer.observe(announcement);
+  }
+})();
