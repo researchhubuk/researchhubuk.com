@@ -33,7 +33,6 @@ document.querySelector('#brief-form').addEventListener('submit', event => {
       slide.hidden = i !== active;
       slide.classList.toggle('is-active', i === active);
     });
-    slider.querySelector('.feature-count').textContent = `0${active + 1} / 0${slides.length}`;
   }
   slider.querySelectorAll('[data-feature-direction]').forEach(button => {
     button.addEventListener('click', () => showSlide(active + Number(button.dataset.featureDirection)));
