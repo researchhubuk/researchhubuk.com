@@ -61,7 +61,18 @@ document.querySelector('#brief-form').addEventListener('submit', event => {
   const announcement = document.querySelector('.announcement');
   if (!header) return;
   const updateSliderSpace = () => {
-    const occupied = header.offsetHeight + (announcement ? announcement.offsetHeight : 0);
+    const nav = header.querySelector('.navbar');
+    let headerHeight = header.offsetHeight;
+    if (nav && window.matchMedia('(max-width: 991px)').matches) {
+      const styles = getComputedStyle(nav);
+      const brand = nav.querySelector('.brand');
+      const toggle = nav.querySelector('.navbar-toggler');
+      const rowHeight = Math.max(brand ? brand.offsetHeight : 0, toggle ? toggle.offsetHeight : 0);
+      const padding = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+      const border = header.offsetHeight - header.clientHeight;
+      headerHeight = Math.max(parseFloat(styles.minHeight) || 0, rowHeight + padding) + border;
+    }
+    const occupied = headerHeight + (announcement ? announcement.offsetHeight : 0);
     document.documentElement.style.setProperty('--mobile-top-height', occupied + 'px');
   };
   updateSliderSpace();
