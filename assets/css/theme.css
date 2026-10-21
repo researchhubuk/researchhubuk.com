@@ -111,3 +111,16 @@ h1,h2,h3,h4,h5,h6{color:var(--brand-navy)}
 .eyebrow,.feature-eyebrow{color:var(--brand-red)}
 .dark-section h1,.dark-section h2,.dark-section h3,.dark-section h4,.dark-section h5,.dark-section h6{color:#fff}
 .dark-section .eyebrow{color:#ffb7c2}
+
+/* Shared button palette from the logo. */
+.btn-primary,.btn-dark{
+--bs-btn-bg:var(--brand-navy);--bs-btn-border-color:var(--brand-navy);--bs-btn-color:#fff;
+--bs-btn-hover-bg:var(--brand-red);--bs-btn-hover-border-color:var(--brand-red);--bs-btn-hover-color:#fff;
+--bs-btn-active-bg:var(--brand-red);--bs-btn-active-border-color:var(--brand-red);--bs-btn-active-color:#fff;
+--bs-btn-disabled-bg:var(--brand-navy);--bs-btn-disabled-border-color:var(--brand-navy);--bs-btn-disabled-color:#fff;
+--bs-btn-focus-shadow-rgb:1,33,105}
+.feature-cta,.feature-arrows button,.slider-controls button{background:var(--brand-navy);border-color:var(--brand-navy);color:#fff}
+.feature-cta:hover,.feature-cta:active,.feature-arrows button:hover,.feature-arrows button:active,.slider-controls button:hover,.slider-controls button:active{background:var(--brand-red);border-color:var(--brand-red);color:#fff}
+.feature-count{color:var(--brand-navy)}
+.navbar-toggler{border-color:var(--brand-navy);color:var(--brand-navy);--bs-navbar-toggler-icon-bg:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23012169' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+.navbar-toggler:hover{border-color:var(--brand-red)}
