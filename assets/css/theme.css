@@ -102,3 +102,12 @@
 .brand-logo{display:block;width:240px;max-width:100%;height:auto}
 @media(max-width:767px){.brand-logo{width:210px}}
 @media(max-width:359px){.brand-logo{width:180px}}
+
+/* Heading palette matched to the Research Hub UK logo. */
+:root{--brand-navy:#012169;--brand-red:#c8102e}
+h1,h2,h3,h4,h5,h6{color:var(--brand-navy)}
+.feature-slide .feature-title{color:var(--brand-navy)}
+.feature-slide .feature-title-accent{color:var(--brand-red)}
+.eyebrow,.feature-eyebrow{color:var(--brand-red)}
+.dark-section h1,.dark-section h2,.dark-section h3,.dark-section h4,.dark-section h5,.dark-section h6{color:#fff}
+.dark-section .eyebrow{color:#ffb7c2}
