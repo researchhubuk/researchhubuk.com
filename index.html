@@ -170,6 +170,30 @@
                 margin-top: 0;
             }
         }
+        @media (min-width: 992px) {
+            .site-header .navbar { gap: 18px; }
+            .site-header .navbar-collapse { min-width: 0; }
+            .site-header .navbar-nav { gap: 4px; flex-wrap: nowrap; }
+            .site-header .nav-link {
+                white-space: nowrap;
+                padding-inline: 8px !important;
+            }
+            .site-header .nav-cta {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 12px 16px;
+                gap: 10px;
+                margin-left: 12px !important;
+            }
+        }
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .site-header .container { padding-inline: 16px; }
+            .site-header .navbar { gap: 12px; }
+            .site-header .brand-logo { width: 180px; }
+            .site-header .nav-link { font-size: 11px; padding-inline: 5px !important; }
+            .site-header .navbar-nav { gap: 0; }
+            .site-header .nav-cta { font-size: 11px !important; padding: 10px; margin-left: 8px !important; }
+        }
     </style>
 </head>
 
@@ -181,7 +205,8 @@
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav ms-auto">
                     <li><a class="nav-link" href="./" aria-current="page">Home</a></li>
-                    <li><a class="nav-link" href="#services">Our services</a></li>
+                    <li><a class="nav-link" href="#services">Academic Services</a></li>
+                    <li><a class="nav-link" href="#speciality">Research Support</a></li>
                     <li><a class="nav-link" href="#subjects">Subjects</a></li>
                     <li><a class="nav-link" href="#process">How it works</a></li>
                     <li><a class="nav-link" href="#why-us">Why us</a></li>
