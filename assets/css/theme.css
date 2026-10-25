@@ -134,6 +134,8 @@ h1,h2,h3,h4,h5,h6{color:var(--brand-navy)}
 .feature-arrows button[data-feature-direction="1"]{background:var(--brand-red);border-color:var(--brand-red);color:#fff}
 .feature-arrows button[data-feature-direction="1"]:hover,.feature-arrows button[data-feature-direction="1"]:active{background:var(--brand-navy);border-color:var(--brand-navy);color:#fff}
 
+.service-image{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;border-radius:7px;margin-bottom:18px}
+
 /* Global heading sizes across all viewport widths. */
 h1{font-size:35px!important}
 h2{font-size:32px!important}
