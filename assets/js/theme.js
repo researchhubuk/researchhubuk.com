@@ -21,7 +21,7 @@ document.querySelector('#brief-form').addEventListener('submit', event => {
   document.querySelector('#form-status').textContent = 'Your requirements file is ready. Send it to the Research Hub UK team through your existing contact channel. Nothing has been submitted online.';
 });
 
-// Manual navigation keeps every highlight readable without an autoplay timer.
+// Rotate homepage highlights every six seconds alongside manual navigation.
 (() => {
   const slider = document.querySelector('.feature-slider');
   if (!slider) return;
@@ -33,7 +33,13 @@ document.querySelector('#brief-form').addEventListener('submit', event => {
       slide.hidden = i !== active;
       slide.classList.toggle('is-active', i === active);
     });
+    // Replay the shared illustration entrance on desktop and mobile.
+    const artwork = slider.querySelectorAll('.feature-slider-art, .feature-mobile-art');
+    artwork.forEach(image => { image.style.animation = 'none'; });
+    void slider.offsetWidth;
+    artwork.forEach(image => { image.style.removeProperty('animation'); });
   }
+  window.setInterval(() => showSlide(active + 1), 6000);
   slider.querySelectorAll('[data-feature-direction]').forEach(button => {
     button.addEventListener('click', () => showSlide(active + Number(button.dataset.featureDirection)));
   });
