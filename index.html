@@ -52,6 +52,30 @@
         #feature-slide-2 .feature-title-accent {
             color: #C8102E;
         }
+        @media (max-width: 767px) {
+            .feature-slide .feature-cta + .feature-cta {
+                margin-top: 12px;
+            }
+        }
+        @media (max-width: 767px) {
+            .feature-slider {
+                height: auto;
+                min-height: calc(100svh - var(--mobile-top-height, 120px));
+            }
+            .feature-slider-content {
+                height: auto;
+                grid-template-rows: auto auto auto;
+            }
+            .feature-art-frame {
+                height: auto;
+                min-height: 220px;
+                aspect-ratio: 1025 / 775;
+            }
+            .feature-mobile-art {
+                height: auto;
+                aspect-ratio: 1025 / 775;
+            }
+        }
     </style>
 </head>
 
