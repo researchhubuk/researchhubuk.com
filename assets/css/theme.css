@@ -141,14 +141,23 @@ h1{font-size:35px!important}
 h2{font-size:32px!important}
 h3:not(:where(.service-card h3,.content-card h3)){font-size:28px!important}
 
-#speciality .speciality-feature-card{position:relative;overflow:hidden;background:url("../img/academic%20speciality/assignment-brief-analysis.webp") center/cover no-repeat;color:#fff}
-#speciality .speciality-feature-card::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.52));content:""}
+#speciality .speciality-image-card{position:relative;overflow:hidden;color:#fff}
+#speciality .speciality-feature-card{background:url("../img/academic%20speciality/assignment-brief-analysis.webp") center/cover no-repeat}
+#speciality .speciality-critical-writing-card{background:url("../img/academic%20speciality/critical-academic-writing-in-uk.webp") center/cover no-repeat}
+#speciality .speciality-research-card{background:url("../img/academic%20speciality/research-%26-evidence.webp") center/cover no-repeat}
+#speciality .speciality-conventions-card{background:url("../img/academic%20speciality/uk-academic-conventions.webp") center/cover no-repeat}
+#speciality .speciality-methodology-card{background:url("../img/academic%20speciality/dissertation-%26-research-methodology.webp") center/cover no-repeat}
+#speciality .speciality-editing-card{background:url("../img/academic%20speciality/academic-editing.webp") center/cover no-repeat}
+#speciality .speciality-image-card::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.52));content:""}
 #speciality .speciality-feature-content{position:relative;z-index:1}
 #speciality .speciality-feature-content,
 #speciality .speciality-feature-content h3,
 #speciality .speciality-feature-content p,
 #speciality .speciality-feature-content strong,
 #speciality .speciality-feature-content .card-number{color:#fff}
-#speciality .speciality-feature-content .card-number{margin-bottom:70px}
-#speciality .speciality-feature-content p{line-height:1.5}
-#speciality .speciality-feature-content .card-number{border-color:rgba(255,255,255,.65)}
+#speciality .speciality-image-card .card-number{margin-bottom:70px;border-color:rgba(255,255,255,.65)}
+#speciality .speciality-image-card p{line-height:1.5}
+#speciality .speciality-image-card>.card-number,
+#speciality .speciality-image-card>h3,
+#speciality .speciality-image-card>p{position:relative;z-index:1;color:#fff}
+#speciality .speciality-image-card>.card-number{border-color:rgba(255,255,255,.65)}
