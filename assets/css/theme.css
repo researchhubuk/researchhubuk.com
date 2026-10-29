@@ -161,3 +161,11 @@ h3:not(:where(.service-card h3,.content-card h3)){font-size:28px!important}
 #speciality .speciality-image-card>h3,
 #speciality .speciality-image-card>p{position:relative;z-index:1;color:#fff}
 #speciality .speciality-image-card>.card-number{border-color:rgba(255,255,255,.65)}
+
+#subjects .subject-business-card{position:relative;overflow:hidden;color:#fff;background:url("../img/university%20subjects/business-%26-management.webp") center/cover no-repeat}
+#subjects .subject-business-card::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.52));content:""}
+#subjects .subject-business-card>.card-number,
+#subjects .subject-business-card>h3,
+#subjects .subject-business-card>p{position:relative;z-index:1;color:#fff}
+#subjects .subject-business-card>.card-number{margin-bottom:70px;border-color:rgba(255,255,255,.65)}
+#subjects .subject-business-card>p{line-height:1.5}
