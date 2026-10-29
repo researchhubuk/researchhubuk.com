@@ -162,10 +162,19 @@ h3:not(:where(.service-card h3,.content-card h3)){font-size:28px!important}
 #speciality .speciality-image-card>p{position:relative;z-index:1;color:#fff}
 #speciality .speciality-image-card>.card-number{border-color:rgba(255,255,255,.65)}
 
-#subjects .subject-business-card{position:relative;overflow:hidden;color:#fff;background:url("../img/university%20subjects/business-%26-management.webp") center/cover no-repeat}
-#subjects .subject-business-card::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.64));content:""}
-#subjects .subject-business-card>.card-number,
-#subjects .subject-business-card>h3,
-#subjects .subject-business-card>p{position:relative;z-index:1;color:#fff}
-#subjects .subject-business-card>.card-number{margin-bottom:70px;border-color:rgba(255,255,255,.65)}
-#subjects .subject-business-card>p{line-height:1.5}
+#subjects .subject-image-card{position:relative;overflow:hidden;color:#fff;background-position:center;background-size:cover;background-repeat:no-repeat}
+#subjects .subject-image-card::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.64));content:""}
+#subjects .subject-image-card>.card-number,
+#subjects .subject-image-card>h3,
+#subjects .subject-image-card>p{position:relative;z-index:1;color:#fff}
+#subjects .subject-image-card>.card-number{margin-bottom:70px;border-color:rgba(255,255,255,.65)}
+#subjects .subject-image-card>p{line-height:1.5}
+
+#subjects .subject-business-card{background-image:url("../img/university%20subjects/business-%26-management.webp")}
+#subjects .subject-accounting-card{background-image:url("../img/university%20subjects/accounting-%26-finance.webp")}
+#subjects .subject-law-card{background-image:url("../img/university%20subjects/law.webp")}
+#subjects .subject-nursing-card{background-image:url("../img/university%20subjects/nursing-%26-healthcare.webp")}
+#subjects .subject-psychology-card{background-image:url("../img/university%20subjects/psychology-%26-social-sciences.webp")}
+#subjects .subject-computing-card{background-image:url("../img/university%20subjects/computing-%26-technology.webp")}
+#subjects .subject-engineering-card{background-image:url("../img/university%20subjects/engineering.webp")}
+#subjects .subject-arts-card{background-image:url("../img/university%20subjects/arts-%26-humanities.webp")}
