@@ -173,8 +173,8 @@ h3:not(:where(.service-card h3,.content-card h3)){font-size:28px!important}
 
 /* Keep the homepage brief readable over the supplied library photograph. */
 #contact.home-contact{background:linear-gradient(rgba(0,12,32,.58),rgba(0,12,32,.58)),url("../img/service/send-your-requirements.webp") center/cover no-repeat;color:#fff}
-#contact.home-contact .contact-grid{align-items:start;gap:32px}
-#contact.home-contact .contact-grid>div{padding:35px 0;min-width:0}
+#contact.home-contact .contact-grid{align-items:center;gap:32px}
+#contact.home-contact .contact-grid>div{padding:0;min-width:0}
 #contact.home-contact .contact-grid>div h2{margin-top:0}
 #contact.home-contact .demo-contacts a{overflow-wrap:anywhere}
 #contact.home-contact .contact-grid>div h2{color:#fff}
