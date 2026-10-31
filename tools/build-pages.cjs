@@ -5,7 +5,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  const documentAbout = require('./about-content.cjs')();
  let source=fs.readFileSync('index.html','utf8');
  source=source.replace('id="contact" class="section contact-section"','id="contact" class="section contact-section home-contact"');
- source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261031-home-contact-aligned-panels');
+ source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261031-home-contact-white-text');
  source=source.replaceAll('href="#why-us">About Us','href="about.html">About Us').replaceAll('href="#contact">Contact</a>','href="contact.html">Contact</a>').replaceAll('href="#contact">Send Your Requirements','href="contact.html">Send Your Requirements');
  let footer=source.slice(source.indexOf('<footer'));
  if(!footer.includes('>About Us</a>')) footer=footer.replace('<a href="contact.html">Contact','<a href="about.html">About Us</a><a href="contact.html">Contact');
