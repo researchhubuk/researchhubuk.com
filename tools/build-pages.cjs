@@ -12,7 +12,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  source=source.slice(0,source.indexOf('<footer'))+footer;
  const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#');
  fs.writeFileSync('index.html',cleanLinks(source));
- let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261031-requested-section-backgrounds">\n</head>');
+ let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261031-mission-vision-simple">\n</head>');
  const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace(' home-contact','').replace('href="#requirements"','href="#contact-details"');
  for(const [filename,title,description,content] of [
  ['about.html','About Us',documentAbout.description,documentAbout.html],

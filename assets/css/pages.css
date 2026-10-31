@@ -33,3 +33,11 @@
 #service-areas .document-locations{gap:12px;margin-top:24px;list-style:none;padding:0}
 #service-areas .document-locations li{padding:16px 18px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:.9rem;font-weight:600;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background-color .2s ease,color .2s ease}
 @media(hover:hover) and (pointer:fine){#service-areas .document-locations li:hover{transform:translateY(-3px);border-color:#012169;background:#f0f4fb;color:#012169;box-shadow:0 7px 18px #01216912}}
+
+.purpose-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+.purpose-card{position:relative;background:#fff;border:1px solid #e0e5ee;border-top:3px solid #012169;border-radius:16px;padding:32px;box-shadow:0 8px 28px #01216907;min-width:0}
+.purpose-card-vision{border-top-color:#c8102e}
+.purpose-card h2{margin:0 0 20px;scroll-margin-top:125px}
+.purpose-copy p{font-size:.94rem;line-height:1.85;margin-bottom:18px}
+.purpose-copy p:last-child{margin-bottom:0}
+@media(max-width:767px){.purpose-grid{grid-template-columns:1fr;gap:18px}.purpose-card{padding:25px}}

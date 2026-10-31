@@ -45,6 +45,11 @@ function buildAboutContent() {
   }
  }
  const html = sections.map((s, i) => {
+  if (plain(s.heading) === 'Our Vision') return '';
+  if (plain(s.heading) === 'Our Mission') {
+   const vision = sections.find(section => plain(section.heading) === 'Our Vision');
+   return `<section class="section document-section purpose-section"><div class="container purpose-grid">${[s, vision].map((item, index) => `<article class="purpose-card purpose-card-${index === 0 ? 'mission' : 'vision'}">${item.heading}<div class="purpose-copy">${item.intro.join('')}</div></article>`).join('')}</div></section>`;
+  }
   const why = plain(s.heading) === 'Why Choose Research Hub UK?';
   const faq = plain(s.heading) === 'FAQs About Research Hub UK';
   const strengths = plain(s.heading) === 'Our Core Strengths';
