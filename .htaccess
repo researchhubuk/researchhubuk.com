@@ -3,9 +3,7 @@ RewriteEngine On
 
 # Redirect earlier page URLs to the canonical slugs.
 RewriteCond %{THE_REQUEST} \s/+([^?\s]*?)(about|contact)(?:\.html)?/?[?\s] [NC]
-RewriteRule ^(about|contact)(?:\.html)?/?$ /%1%2-us [R=301,L]
+RewriteRule ^(about|contact)(?:\.html)?/?$ /%1%2-us/ [R=301,L]
 
-# Serve the existing HTML files without exposing their extensions.
-RewriteCond %{REQUEST_URI} ^(.+)/$
-RewriteRule ^(about-us|contact-us)/$ %1 [R=301,L]
-RewriteRule ^(about|contact)-us$ $1.html [END]
+# Clean URLs are real directories, also supported by GitHub Pages.
+DirectoryIndex index.html

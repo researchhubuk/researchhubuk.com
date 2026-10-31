@@ -8,9 +8,9 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  let footer=source.slice(source.indexOf('<footer'));
  if(!footer.includes('>About Us</a>')) footer=footer.replace('<a href="contact.html">Contact','<a href="about.html">About Us</a><a href="contact.html">Contact');
  source=source.slice(0,source.indexOf('<footer'))+footer;
- const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html)?"/g, '$1="$2$3-us"').replace(/href="index\.html#/g, 'href="./#');
+ const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#');
  fs.writeFileSync('index.html',cleanLinks(source));
- let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261031-service-areas-design">\n</head>');
+ let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261031-city-cards-full-width">\n</head>');
  const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace('href="#requirements"','href="#contact-details"');
  for(const [filename,title,description,content] of [
  ['about.html','About Us',documentAbout.description,documentAbout.html],
@@ -23,11 +23,21 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  .replace(`class="nav-link" href="${filename}"`,`class="nav-link" href="${filename}" aria-current="page"`);
  head=head.replace(`class="nav-link" href="${filename.replace('.html','')}"`,`class="nav-link" href="${filename.replace('.html','')}" aria-current="page"`);
  head=head.replace(`class="nav-link" href="${filename.replace('.html','-us')}"`,`class="nav-link" href="${filename.replace('.html','-us')}" aria-current="page"`);
+ head=head.replace(`class="nav-link" href="${filename.replace('.html','-us/')}"`,`class="nav-link" href="${filename.replace('.html','-us/')}" aria-current="page"`);
  if(filename === 'about.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${documentAbout.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${documentAbout.title}`);
  let page=head+'<main id="main">'+content+'</main>'+footer;
  page=page.replace(/href="#(services|speciality|subjects|faqs)"/g,'href="index.html#$1"');
- fs.writeFileSync(filename,cleanLinks(page));
+ page=cleanLinks(page);
+ fs.writeFileSync(filename,page);
+ // Real directories work on GitHub Pages without Apache rewrite support.
+ const directory=filename.replace('.html','-us');
+ fs.mkdirSync(directory,{recursive:true});
+ const directoryPage=page.replace(/\b(href|src)="([^\"]*)"/g,(match,attribute,url)=>{
+  if(!url || /^(?:[a-z][a-z\d+.-]*:|\/|#)/i.test(url)) return match;
+  return `${attribute}="../${url.replace(/^\.\//,'')}"`;
+ });
+ fs.writeFileSync(`${directory}/index.html`,directoryPage);
  }
- fs.writeFileSync('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['','about-us','contact-us'].map(n=>`<url><loc>https://researchhubuk.com/${n}</loc></url>`).join('')+'</urlset>\n');
+ fs.writeFileSync('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['','about-us/','contact-us/'].map(n=>`<url><loc>https://researchhubuk.com/${n}</loc></url>`).join('')+'</urlset>\n');
  console.log('Built About Us and Contact pages with homepage header and footer.');
 })();

@@ -50,15 +50,7 @@ function buildAboutContent() {
   const strengths = plain(s.heading) === 'Our Core Strengths';
   const services = plain(s.heading) === 'Our Services';
   if (plain(s.heading) === 'Our Service Areas') {
-   const list = s.intro.find(block => block.startsWith('<ul'));
-   const cities = [...list.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)].map(match => match[1]);
-   const groups = [
-    ['England', cities.filter(city => !['Glasgow', 'Edinburgh', 'Cardiff', 'Belfast'].includes(plain(city)))],
-    ['Scotland', cities.filter(city => ['Glasgow', 'Edinburgh'].includes(plain(city)))],
-    ['Wales', cities.filter(city => plain(city) === 'Cardiff')],
-    ['Northern Ireland', cities.filter(city => plain(city) === 'Belfast')],
-   ];
-   return `<section id="service-areas" class="section document-section coverage-section"><div class="container"><div class="section-heading"><span class="eyebrow" aria-hidden="true">${String(i+1).padStart(2,'0')} / ACROSS THE UK</span>${s.heading}</div><div class="document-intro coverage-intro">${s.intro.filter(block => block !== list).join('')}</div><div class="coverage-layout"><aside class="coverage-overview" aria-label="UK service coverage"><div class="coverage-orbit" aria-hidden="true"><span></span><span></span><span></span><b>UK</b></div><div class="coverage-stat"><strong>16</strong><span>cities listed.<br>One academic support team.</span></div><p class="coverage-caption">Across England, Scotland,<br>Wales &amp; Northern Ireland</p><a class="coverage-link" href="contact-us">Discuss your requirements <span aria-hidden="true">↗</span></a></aside><div class="coverage-regions">${groups.map(([country, items], index) => `<div class="coverage-region${index === 0 ? ' coverage-region-main' : ''}"><div class="coverage-region-heading"><p>${country}</p><span>${String(items.length).padStart(2,'0')} ${items.length === 1 ? 'city' : 'cities'}</span></div><ul>${items.map(city => `<li><span class="coverage-pin" aria-hidden="true"></span>${city}</li>`).join('')}</ul></div>`).join('')}</div></div></div></section>`;
+   return `<section id="service-areas" class="section document-section"><div class="container"><div class="section-heading"><span class="eyebrow" aria-hidden="true">${String(i+1).padStart(2,'0')} / RESEARCH HUB UK</span>${s.heading}</div><div class="document-intro">${s.intro.join('')}</div></div></section>`;
   }
   let cards = '';
   if (faq) {

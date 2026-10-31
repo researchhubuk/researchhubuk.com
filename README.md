@@ -1,5 +1,9 @@
 # Research Hub UK frontend
 
+## GitHub Pages clean URLs
+
+Run `npm run build:pages` after changing the inner pages. Publish the root files, `assets/`, **`about-us/index.html`** and **`contact-us/index.html`** together. These real directories serve `/about-us/` and `/contact-us/` on GitHub Pages, which does not process Apache `.htaccess` rewrite rules. Inner-page asset and navigation paths are relative, so they also work beneath `/researchhubuk.com/`. Commit the generated folders when publishing from a branch; include them in the artifact when publishing through Actions. Apache uses the same folders, with redirects for older URLs in `.htaccess`.
+
 A responsive HTML5, Bootstrap 5.3.8, CSS and vanilla JavaScript theme. Open `http://localhost/researchhubuk/` in XAMPP. No PHP server logic is required for the preview.
 
 The original document is preserved at `content/original.html`. All customer copy is retained; document metadata becomes real metadata, editorial notes are removed, and button annotations become CTAs. `python tools/build.py` rebuilds the page from the preserved document. Edit the generator when changing the page layout. Service cards currently link to the requirements section because no individual service-page content was supplied.
