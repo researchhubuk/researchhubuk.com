@@ -4,6 +4,8 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
 (function buildPages(){
  const documentAbout = require('./about-content.cjs')();
  let source=fs.readFileSync('index.html','utf8');
+ source=source.replace('id="contact" class="section contact-section"','id="contact" class="section contact-section home-contact"');
+ source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261031-home-contact-aligned-panels');
  source=source.replaceAll('href="#why-us">About Us','href="about.html">About Us').replaceAll('href="#contact">Contact</a>','href="contact.html">Contact</a>').replaceAll('href="#contact">Send Your Requirements','href="contact.html">Send Your Requirements');
  let footer=source.slice(source.indexOf('<footer'));
  if(!footer.includes('>About Us</a>')) footer=footer.replace('<a href="contact.html">Contact','<a href="about.html">About Us</a><a href="contact.html">Contact');
@@ -11,7 +13,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#');
  fs.writeFileSync('index.html',cleanLinks(source));
  let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261031-city-cards-full-width">\n</head>');
- const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace('href="#requirements"','href="#contact-details"');
+ const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace(' home-contact','').replace('href="#requirements"','href="#contact-details"');
  for(const [filename,title,description,content] of [
  ['about.html','About Us',documentAbout.description,documentAbout.html],
  ['contact.html','Contact','Contact Research Hub UK by email or WhatsApp to discuss your assignment, dissertation or research requirements.',intro+contact+outro]]){
