@@ -1,4 +1,5 @@
-.page-intro,.section.page-intro:nth-of-type(even){background:#eaf2dc}
+/* Keep the requested dark section; other inner-page sections stay white. */
+#main>.section:not(.dark-section){background:#fff}
 .page-intro h1{max-width:850px;font-size:clamp(2.3rem,5vw,4rem);line-height:1.15;letter-spacing:-.04em;margin:0 0 24px}
 .page-lead{max-width:680px;font-size:1.1rem;margin-bottom:28px}
 .breadcrumbs{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;margin-bottom:38px}
