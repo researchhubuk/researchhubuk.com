@@ -1,0 +1,11 @@
+.page-intro,.section.page-intro:nth-of-type(even){background:#eaf2dc}
+.page-intro h1{max-width:850px;font-size:clamp(2.3rem,5vw,4rem);line-height:1.15;letter-spacing:-.04em;margin:0 0 24px}
+.page-lead{max-width:680px;font-size:1.1rem;margin-bottom:28px}
+.breadcrumbs{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;margin-bottom:38px}
+.breadcrumbs a{text-decoration:underline;text-underline-offset:4px}
+.page-actions{display:flex;flex-wrap:wrap;gap:14px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px}
+.about-grid h2{max-width:500px}
+.demo-contacts a{overflow-wrap:anywhere}
+.nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
+@media(max-width:767px){.about-grid{grid-template-columns:1fr;gap:18px}.page-lead{font-size:1rem}.breadcrumbs{margin-bottom:28px}.footer-bottom nav{flex-wrap:wrap;gap:14px 20px}}

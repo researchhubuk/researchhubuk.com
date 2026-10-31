@@ -7,7 +7,7 @@ document.querySelectorAll('#navigation a').forEach(link => link.addEventListener
   if (nav.classList.contains('collapsing')) nav.addEventListener('shown.bs.collapse', () => collapse.hide(), {once:true});
   else if (nav.classList.contains('show')) collapse.hide();
 }));
-document.querySelector('#brief-form').addEventListener('submit', event => {
+document.querySelector('#brief-form')?.addEventListener('submit', event => {
   event.preventDefault();
   const form = event.currentTarget;
   if (!form.reportValidity()) return;

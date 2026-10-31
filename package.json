@@ -2,7 +2,7 @@
   "name": "research-hub-uk-theme",
   "version": "1.0.0",
   "private": true,
-  "scripts": {"build": "python tools/build.py", "check": "node tools/check.cjs"},
+  "scripts": {"build": "python tools/build.py && node tools/build-pages.cjs", "build:pages": "node tools/build-pages.cjs", "check": "node tools/check.cjs"},
   "dependencies": {"bootstrap": "5.3.8"},
   "devDependencies": {"sharp": "^0.34.5", "playwright": "^1.56.0"}
 }
