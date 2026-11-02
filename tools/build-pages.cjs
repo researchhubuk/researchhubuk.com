@@ -14,7 +14,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  source=source.slice(0,source.indexOf('<footer'))+footer;
  const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#');
  fs.writeFileSync('index.html',cleanLinks(source));
- let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261102-academic-services">\n</head>');
+ let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261102-home-layout-match">\n</head>');
  const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace(' home-contact','').replace('href="#requirements"','href="#contact-details"');
  for(const [filename,title,description,content] of [
  ['academic-services.html','Academic Services',academic.description,academic.html],
@@ -30,6 +30,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  head=head.replace(`class="nav-link" href="${filename.replace('.html','')}"`,`class="nav-link" href="${filename.replace('.html','')}" aria-current="page"`);
  head=head.replace(`class="nav-link" href="${filename.replace('.html','-us')}"`,`class="nav-link" href="${filename.replace('.html','-us')}" aria-current="page"`);
  head=head.replace(`class="nav-link" href="${filename.replace('.html','-us/')}"`,`class="nav-link" href="${filename.replace('.html','-us/')}" aria-current="page"`);
+ if(filename === 'academic-services.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${academic.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${academic.title}`);
  if(filename === 'about.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${documentAbout.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${documentAbout.title}`);
  if(filename === 'academic-services.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
  let page=head+'<main id="main">'+content+'</main>'+footer;

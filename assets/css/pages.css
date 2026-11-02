@@ -56,3 +56,58 @@
 .academic-cta p{color:#e0e5ee;margin-bottom:0}.academic-cta .btn{flex-shrink:0}
 @media(max-width:991px){.academic-hero-grid{grid-template-columns:1fr;gap:30px}.academic-hero-image img{height:320px}.academic-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.academic-service-grid{grid-template-columns:1fr;gap:20px}.academic-service-grid .service-card{padding:24px}.academic-service-grid .service-card h3{font-size:1.15rem}.academic-hero-image img{height:240px}.academic-cta{align-items:flex-start;flex-direction:column}}
+
+.academic-document{padding-block:28px}
+.academic-document .container>:last-child{margin-bottom:0}
+.academic-document h1{max-width:none}
+.academic-document h2{margin-bottom:28px;max-width:none}
+.academic-document h3{font-size:1.5rem!important;line-height:1.35;margin:34px 0 16px;letter-spacing:-.025em}
+.academic-document h4{font-size:1.2rem;margin:28px 0 14px;line-height:1.4}
+.academic-document p,.academic-document li{line-height:1.85}
+.section.academic-document>.container>p,
+.academic-document .section-heading,
+.academic-document p{max-width:none;width:100%}
+.academic-document .faq-list{max-width:none;width:100%}
+.academic-document ul{padding-left:24px;margin-bottom:24px}
+.academic-document .page-actions{margin:26px 0 12px}
+.academic-document .service-grid{margin-top:32px}
+.academic-document .service-card h3{font-size:1.05rem!important;margin:16px 0}
+.academic-table-wrap{overflow-x:auto;margin:28px 0;border:1px solid var(--line);border-radius:12px}
+.academic-table-wrap table{width:100%;border-collapse:collapse;min-width:480px}
+.academic-table-wrap td{padding:16px 22px;border-bottom:1px solid var(--line);vertical-align:top}
+.academic-table-wrap thead{background:#012169;color:#fff;font-weight:700}
+.academic-table-wrap thead p{color:#fff}
+.academic-table-wrap tbody tr:last-child td{border-bottom:0}
+.academic-table-wrap p{margin:0}
+@media(max-width:767px){.academic-document{padding-block:20px}}
+
+.assignment-service-table th{padding:18px 22px;text-align:left;vertical-align:top;width:50%}
+.assignment-service-table tbody tr{transition:background-color .2s ease,box-shadow .2s ease}
+.assignment-service-table tbody tr:nth-child(even){background:#f8faff}
+@media(hover:hover){.assignment-service-table tbody tr:hover{background:#eaf0fc;box-shadow:inset 4px 0 #c8102e}.assignment-service-table tbody tr:hover td{color:#012169}}
+.assignment-service-table tbody td{transition:color .2s ease}
+
+.academic-document .academic-layout-cards{margin-top:28px;gap:22px;align-items:stretch}
+.academic-layout-cards .content-card{min-width:0;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.academic-document .academic-layout-cards h3,.academic-document .academic-layout-cards h4{font-size:1.25rem!important;line-height:1.4;letter-spacing:-.025em;margin:20px 0 16px}
+.academic-layout-cards .content-card p{font-size:.93rem;line-height:1.85}
+.academic-layout-cards .content-card p:last-child{margin-bottom:0}
+.academic-document .academic-qualification-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.academic-document .academic-requirements{padding:0;margin-block:28px}
+.academic-requirements li{align-items:start;font-size:.94rem;background:#fafbfe}
+.academic-requirements li>div{min-width:0}
+.academic-subsection{margin-top:36px}
+@media(hover:hover) and (pointer:fine){.academic-layout-cards .content-card:hover{transform:translateY(-4px);border-color:#012169;box-shadow:0 10px 24px #0121690d}}
+@media(max-width:991px){.academic-document .academic-layout-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:767px){.academic-document .academic-layout-cards{grid-template-columns:1fr;gap:16px}.academic-subsection{margin-top:28px}}
+
+.academic-document .academic-support-list{padding:0;gap:16px;margin-block:28px}
+.academic-support-list li{position:relative;padding:24px 24px 24px 52px}
+.academic-support-list li:before{position:absolute;left:22px;top:25px;margin:0}
+.academic-support-list li>div{min-width:0}
+.academic-document .academic-support-list h3{font-size:1.2rem!important;line-height:1.4;margin:0 0 14px;letter-spacing:-.02em}
+.academic-support-list li p{font-size:.94rem;line-height:1.85}
+.academic-support-list li p:last-child{margin-bottom:0}
+.academic-document.dark-section .academic-support-list li{background:#ffffff05}
+.academic-document.dark-section .academic-layout-cards .content-card:hover{border-color:#ffffff70}
+@media(max-width:767px){.academic-support-list li{padding:22px 20px 22px 46px}.academic-support-list li:before{left:18px;top:23px}}

@@ -1,27 +1,106 @@
+const fs = require('node:fs');
+const path = require('node:path');
+
+// Keep the supplied export as the source of truth; document notes are not page copy.
 module.exports = () => {
- const services = [
-  ['Assignment & Essay Support','assignment-help','Build a clear argument, interpret your brief and improve the structure of essays, reports and assignments.','Planning, critical analysis and referencing'],
-  ['Dissertation Support','dissertation-writing','Get guidance through your dissertation, from a focused question to a coherent final draft.','Topic selection, chapter planning and feedback'],
-  ['Research Proposals','research-proposal','Turn your research idea into a focused proposal with clear aims and a practical approach.','Research questions, scope and methodology'],
-  ['Literature Reviews','literature-review','Learn to find relevant sources, compare evidence and organise a critical review of the literature.','Search strategy, synthesis and research gaps'],
-  ['Coursework & Case Studies','coursework-help','Connect theory with practice and present your analysis in line with your module requirements.','Reports, case analysis and reflective writing'],
-  ['Editing & Proofreading','proofreading','Refine your own draft with support for clarity, academic tone, grammar and consistency.','Language, structure and reference checks'],
-  ['Qualification-Based Support','btec-assignment-help','Work through assessment requirements for BTEC, HNC, HND, ATHE, OTHM and other qualifications.','Learning outcomes and assessment criteria'],
-  ['Postgraduate Research','phd-thesis','Discuss the structure and presentation of advanced research with support tailored to your project.','Research design, thesis organisation and feedback'],
-  ['Resit & Revision Guidance','resit-assignment','Understand tutor feedback, identify gaps and plan improvements for your next submission.','Feedback review, revision planning and study support']
- ];
- const faqs = [
-  ['Which service should I choose?','Send your brief, academic level and any tutor feedback. We can help you identify the areas where guidance would be most useful.'],
-  ['Can you review an existing draft?','Yes. Share your draft alongside the assignment brief and tell us whether you need feedback on structure, analysis, language or references.'],
-  ['What information should I send?','Include your subject, academic level, task brief, marking criteria, word count, deadline and referencing style. You can send files directly by email or WhatsApp through our contact page.'],
-  ['How should I use academic support?','Use guidance and feedback to develop your own work and understanding. Follow your institution’s rules on external assistance and ensure that any work you submit is your own.']
- ];
- return {
-  description: 'Explore academic services from Research Hub UK: assignment guidance, dissertation support, research proposals, literature reviews, editing and proofreading.',
-  html: `<section class="section page-intro academic-hero"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="./">Home</a><span aria-hidden="true">/</span><span aria-current="page">Academic Services</span></nav><div class="academic-hero-grid"><div><span class="eyebrow">ACADEMIC SERVICES / RESEARCH HUB UK</span><h1>Clear guidance for every stage of your academic work.</h1><p class="page-lead">From understanding your first assignment brief to refining a dissertation, find support built around your subject, academic level and learning goals.</p><div class="page-actions"><a class="btn btn-primary" href="#academic-services">Explore Our Services <span aria-hidden="true">&#8599;</span></a><a class="btn btn-dark" href="contact-us/">Discuss Your Requirements <span aria-hidden="true">&#8599;</span></a></div></div><figure class="academic-hero-image"><img src="assets/img/students.webp" alt="Students working together on their academic studies" width="640" height="480" fetchpriority="high"><figcaption>Understand your brief. Develop your ideas. Refine your work.</figcaption></figure></div></div></section>
-  <section id="academic-services" class="section document-section"><div class="container"><div class="section-heading"><span class="eyebrow">SUPPORT THAT FITS YOUR TASK</span><h2>Explore our academic services</h2></div><p class="page-lead">Choose a starting point below, or share your brief with our team for guidance on the right support.</p><div class="service-grid academic-service-grid">${services.map(([title,img,copy,detail])=>`<a class="service-card" href="contact-us/"><img class="service-image" src="assets/img/service/${img}.webp" alt="" width="300" height="150" loading="lazy"><h3>${title}</h3><p>${copy}</p><span class="academic-service-detail">${detail}</span><span class="arrow" aria-hidden="true">&#8599;</span></a>`).join('')}</div></div></section>
-  <section class="section document-section"><div class="container"><div class="section-heading"><span class="eyebrow">A SIMPLE WAY TO GET STARTED</span><h2>From your brief to a clear plan</h2></div><div class="document-cards academic-steps"><article class="document-card"><span class="eyebrow">01 / SHARE</span><h3>Tell us about your task</h3><p>Send your brief, marking criteria, academic level and deadline, together with any notes or draft you already have.</p></article><article class="document-card"><span class="eyebrow">02 / PLAN</span><h3>Agree on the support</h3><p>Discuss your priorities, the scope of guidance and the timeframe before deciding how to move forward.</p></article><article class="document-card"><span class="eyebrow">03 / DEVELOP</span><h3>Put guidance into practice</h3><p>Use feedback to strengthen your understanding, refine your work and check it against your assessment criteria.</p></article></div></div></section>
-  <section class="section dark-section"><div class="container academic-cta"><div><span class="eyebrow">YOUR NEXT STEP</span><h2>Have a brief in mind?</h2><p>Share your requirements and tell us where you need support.</p></div><a class="btn btn-primary" href="contact-us/">Send Your Requirements <span aria-hidden="true">&#8599;</span></a></div></section>
-  <section class="section document-section"><div class="container"><div class="section-heading"><span class="eyebrow">BEFORE YOU GET STARTED</span><h2>Frequently asked questions</h2></div><div class="faq-list">${faqs.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div></div></section>`
+ const source = fs.readFileSync(path.join(__dirname, '../content/academic-original.html'), 'utf8');
+ const plain = html => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+ const paragraphs = [...source.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map(m => plain(m[1]));
+ const title = paragraphs.find(t => t.startsWith('Meta Title:')).replace(/^Meta Title:\s*/, '');
+ const description = paragraphs.find(t => t.startsWith('Meta Description:')).replace(/^Meta Description:\s*/, '');
+ let body = source.match(/<body\b[^>]*>([\s\S]*?)<\/body>/)[1];
+ body = body.slice(body.indexOf('<h1'));
+ // Export styling is replaced with site styling; text and semantic lists/tables remain.
+ const boldClasses = new Set([...source.matchAll(/\.([\w-]+)\{([^}]*font-weight:\s*(?:700|bold)[^}]*)\}/g)].map(m => m[1]));
+ body = body.replace(/<span\b([^>]*)>([\s\S]*?)<\/span>/g, (match, attributes, text) => {
+  const classes = (attributes.match(/class="([^"]*)"/)?.[1] || '').split(/\s+/);
+  return classes.some(name => boldClasses.has(name)) ? '<strong>' + text + '</strong>' : text;
+ })
+  .replace(/<a\b[^>]*>([\s\S]*?)<\/a>/g, '$1')
+  .replace(/<(\/?[a-z][a-z0-9]*)\b[^>]*>/gi, '<$1>');
+ body = body.replace(/<p>([\s\S]*?)<\/p>/g, (block, inner) => {
+  const text = plain(inner);
+  if (!text) return '';
+  if (text.startsWith('Button:')) {
+   const label = plain(inner).replace(/^Button:\s*/, '').trim();
+   const whatsappButtons = new Set(['Help Me Choose a Service', 'Contact Research Hub UK', 'Get Assignment Planning Support', 'Get Writing &amp; Research Guidance', 'Get Help With Your Assessment Type']);
+   if (whatsappButtons.has(label)) {
+    return '<div class="page-actions"><a class="btn btn-primary" href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer">' + label + '</a></div>';
+   }
+   const target = /Find Your Assignment Service|Explore Our Academic Services/.test(text) ? '#assignment-services' : 'contact-us/';
+   return '<div class="page-actions"><a class="btn btn-primary" href="' + target + '">' + label + '</a></div>';
+  }
+  if (text === '[insert the service section from home page]') {
+   const home = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+   const section = home.match(/<section id="services"[\s\S]*?<\/section>/)[0];
+   const grid = section.slice(section.indexOf('<div class="service-grid">')).replace(/\s*<\/div>\s*<\/section>$/, '');
+   return '<div id="assignment-services">' + grid.replace(/href="#[^"]*"/g, 'href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer"') + '</div>';
+  }
+  return block;
+ });
+ // Adapt the document's groups to the homepage card and checklist patterns.
+ const headingIndex = (text, from = 0) => {
+  for (const m of body.slice(from).matchAll(/<h[2-4]>[\s\S]*?<\/h[2-4]>/g)) {
+   if (plain(m[0]) === text) return from + m.index;
+  }
+  throw new Error('Missing document heading: ' + text);
  };
+ const restyle = (start, end, transform) => {
+  const first = headingIndex(start), last = headingIndex(end, first + 1);
+  body = body.slice(0, first) + transform(body.slice(first, last)) + body.slice(last);
+ };
+ const cards = (html, level = 3, variant = '') => {
+  // Keep introductory text and the final CTA outside the grid.
+  const first = html.indexOf('<h' + level + '>');
+  if (first < 0) throw new Error('Missing card headings');
+  const cta = html.indexOf('<div class="page-actions">', first);
+  const end = cta < 0 ? html.length : cta;
+  const items = html.slice(first, end);
+  let index = 0;
+  const pattern = new RegExp('<h' + level + '>([\\s\\S]*?)<\\/h' + level + '>([\\s\\S]*?)(?=<h' + level + '>|$)', 'g');
+  const grid = items.replace(pattern, (match, title, copy) => '<article class="content-card"><span class="card-number" aria-hidden="true">' + String(++index).padStart(2, '0') + '</span><h' + level + '>' + title + '</h' + level + '>' + copy + '</article>');
+  return html.slice(0, first) + '<div class="card-grid academic-layout-cards ' + variant + '">' + grid + '</div>' + html.slice(end);
+ };
+ const checklist = html => {
+  const first = html.indexOf('<h3>');
+  const cta = html.indexOf('<div class="page-actions">', first);
+  const end = cta < 0 ? html.length : cta;
+  const items = html.slice(first, end).replace(/<h3>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3>|$)/g,
+   '<li><div><h3>$1</h3>$2</div></li>');
+  return html.slice(0, first) + '<ul class="check-list academic-support-list">' + items + '</ul>' + html.slice(end);
+ };
+ restyle('Assignment help for different types of University assessments', 'What is included in our University assignment support?', html => cards(html, 3, 'steps'));
+ restyle('What is included in our University assignment support?', 'Academic support based on your assignment stage', checklist);
+ restyle('Coursework &amp; Assignment Help for UK Qualifications', 'How to Choose the Right University Assignment Service', checklist);
+ restyle('Common University assignment challenges we can help you address', 'What to consider before requesting assignment help', html => cards(html, 4));
+ restyle('What to consider before requesting assignment help', 'Why choose Research Hub UK for University assignment help?', html => {
+  const pattern = /<p><strong>(Assessment Type:|Assignment Instructions:|Academic Level:|Assessment Criteria:|Current Progress:|Support Required:|Deadline:)<\/strong>([\s\S]*?)<\/p>/g;
+  const matches = [...html.matchAll(pattern)];
+  if (matches.length !== 7) throw new Error('Expected seven assignment checklist items');
+  const start = matches[0].index, last = matches.at(-1);
+  return html.slice(0, start) + '<ul class="check-list academic-requirements">' + matches.map(m => '<li><div><strong>' + m[1] + '</strong>' + m[2] + '</div></li>').join('') + '</ul>' + html.slice(last.index + last[0].length);
+ });
+ restyle('Why choose Research Hub UK for University assignment help?', 'FAQs About University assignment help services', html => {
+  const heading = html.match(/^<h3>[\s\S]*?<\/h3>/)[0];
+  const copy = html.slice(heading.length).replace(/<ul><li>(<h3>[\s\S]*?<\/h3>)<\/li><\/ul>/g, '$1');
+  return heading.replace(/h3>/g, 'h2>') + cards(copy);
+ });
+ body = body.replace(/<h2>/g, '</div></section><section class="section document-section academic-document"><div class="container"><h2>');
+ body = body.replace(/<section class="section document-section academic-document"><div class="container"><h2><strong>(What is included in our University assignment support\?|Why choose Research Hub UK for University assignment help\?)/g,
+  '<section class="section document-section academic-document dark-section"><div class="container"><h2><strong>$1');
+ body = body.replace('<h3><strong>Academic support based on your assignment stage</strong></h3>',
+  '</div></section><section class="section document-section academic-document"><div class="container"><h3><strong>Academic support based on your assignment stage</strong></h3>');
+ // Reuse the homepage FAQ markup and styling without changing document copy.
+ body = body.replace(/(<h2>(?:<strong>)?FAQs About University assignment help services(?:<\/strong>)?<\/h2>)([\s\S]*?)(?=<h3>(?:<strong>)?Find the academic support that fits your assignment(?:<\/strong>)?<\/h3>)/, (match, heading, questions) => {
+  const items = questions.replace(/<h3>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3>|$)/g,
+   '<details><summary>$1</summary>$2</details>');
+  return '<div class="section-heading">' + heading + '</div><div class="faq-list">' + items + '</div>';
+ });
+ body = body.replace(/<table>([\s\S]*?)<\/table>/g, (table, content) => {
+  const rows = [...content.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map(row => row[1]);
+  if (!rows.length) return table;
+  const header = rows.shift().replace(/<td>/g, '<th scope="col">').replace(/<\/td>/g, '</th>');
+  return '<div class="academic-table-wrap"><table class="assignment-service-table"><caption class="visually-hidden">University assignment requirements and suggested services</caption><thead><tr>' + header + '</tr></thead><tbody>' + rows.map(row => '<tr>' + row + '</tr>').join('') + '</tbody></table></div>';
+ });
+ return { title, description, html: '<section class="section page-intro document-section academic-document"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="./">Home</a><span aria-hidden="true">/</span><span>Academic Services</span></nav>' + body + '</div></section>' };
 };
