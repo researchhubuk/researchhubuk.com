@@ -110,4 +110,6 @@
 .academic-support-list li p:last-child{margin-bottom:0}
 .academic-document.dark-section .academic-support-list li{background:#ffffff05}
 .academic-document.dark-section .academic-layout-cards .content-card:hover{border-color:#ffffff70}
+#main>.research-includes-section{background:#f0f4fb}
+.research-includes-section .academic-support-list li{background:#fff;border-color:#dce3ee}
 @media(max-width:767px){.academic-support-list li{padding:22px 20px 22px 46px}.academic-support-list li:before{left:18px;top:23px}}
