@@ -27,7 +27,7 @@ module.exports = () => {
    if (whatsappButtons.has(label)) {
     return '<div class="page-actions"><a class="btn btn-primary" href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer">' + label + '</a></div>';
    }
-   const target = /Find Your Assignment Service|Explore Our Academic Services/.test(text) ? '#assignment-services' : 'contact-us/';
+   const target = 'contact-us/';
    return '<div class="page-actions"><a class="btn btn-primary" href="' + target + '">' + label + '</a></div>';
   }
   if (text === '[insert the service section from home page]') {
