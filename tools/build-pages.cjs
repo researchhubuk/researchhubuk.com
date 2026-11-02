@@ -5,6 +5,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  const documentAbout = require('./about-content.cjs')();
  const academic = require('./academic-content.cjs')();
  let source=fs.readFileSync('index.html','utf8');
+ source=source.replace(/<section id="services"[\s\S]*?<\/section>/, section => section.replace(/<a class="service-card"[^>]*>([\s\S]*?)<\/a>/g, '<article class="service-card">$1</article>'));
  source=source.replace(/href="(?:\.\/|index\.html)?#services"/g,'href="academic-services/"');
  source=source.replace('id="contact" class="section contact-section"','id="contact" class="section contact-section home-contact"');
  source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261031-home-contact-link-underline-fix');

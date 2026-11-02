@@ -34,7 +34,7 @@ module.exports = () => {
    const home = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
    const section = home.match(/<section id="services"[\s\S]*?<\/section>/)[0];
    const grid = section.slice(section.indexOf('<div class="service-grid">')).replace(/\s*<\/div>\s*<\/section>$/, '');
-   return '<div id="assignment-services">' + grid.replace(/href="#[^"]*"/g, 'href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer"') + '</div>';
+   return '<div id="assignment-services">' + grid.replace(/<article class="service-card">([\s\S]*?)<\/article>/g, '<a class="service-card" href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer">$1</a>').replace(/href="(?!https:\/\/wa\.me\/)[^"]*"/g, 'href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer"') + '</div>';
   }
   return block;
  });
