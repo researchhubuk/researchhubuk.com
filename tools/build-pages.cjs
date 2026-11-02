@@ -10,9 +10,9 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  source=source.replace(/href="(?:\.\/|index\.html)?#services"/g,'href="academic-services/"');
  source=source.replace(/href="(?:\.\/|index\.html)?#speciality"(?=>Research Support)/g,'href="research-support/"');
  source=source.replace('id="contact" class="section contact-section"','id="contact" class="section contact-section home-contact"');
- source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261031-home-contact-link-underline-fix');
+ source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261102-footer-redesign');
  source=source.replaceAll('href="#why-us">About Us','href="about.html">About Us').replaceAll('href="#contact">Contact</a>','href="contact.html">Contact</a>').replaceAll('href="#contact">Send Your Requirements','href="contact.html">Send Your Requirements');
- let footer=source.slice(source.indexOf('<footer'));
+ let footer=require('./footer-content.cjs')();
  if(!footer.includes('>About Us</a>')) footer=footer.replace('<a href="contact.html">Contact','<a href="about.html">About Us</a><a href="contact.html">Contact');
  source=source.slice(0,source.indexOf('<footer'))+footer;
  const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#').replace(/<a class="btn btn-primary" href="[^"]*">Call for Your Support/g, '<a class="btn btn-primary" href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer">Call for Your Support');
