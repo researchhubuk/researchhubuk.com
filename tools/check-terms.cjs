@@ -1,0 +1,27 @@
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const source = fs.readFileSync('content/terms-original.html', 'utf8');
+const original = '<h1' + source.split(/<h1\b/)[1].split('</body>')[0];
+const page = fs.readFileSync('terms-and-conditions/index.html', 'utf8');
+const main = page.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
+const normalize = html => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+const blocks = [...original.matchAll(/<(h[1-6]|p|li)\b[^>]*>([\s\S]*?)<\/\1>/g)].map(m => normalize(m[2]).replace(/^Button:\s*/, '')).filter(Boolean);
+for (const text of blocks) assert.ok(normalize(main).includes(text), `Missing copy: ${text}`);
+// Compare all body words in order, including every list item and the button label.
+assert.equal(normalize(main.replace(/<nav\b[\s\S]*?<\/nav>/, '')), normalize(original).replace(/Button:\s*/, ''));
+const headings = html => [...html.matchAll(/<(h[1-6])\b[^>]*>([\s\S]*?)<\/\1>/g)].map(m => [m[1], normalize(m[2])]);
+assert.deepEqual(headings(main), headings(original));
+const boldClasses = new Set([...source.matchAll(/\.([\w-]+)\{([^}]*font-weight:\s*(?:700|bold)[^}]*)\}/g)].map(m => m[1]));
+const withoutButton = original.replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, block => normalize(block).startsWith('Button:') ? '' : block);
+const expectedBold = [...withoutButton.matchAll(/<span\b([^>]*)>([\s\S]*?)<\/span>/g)].filter(m => (m[1].match(/class="([^"]*)"/)?.[1] || '').split(/\s+/).some(c => boldClasses.has(c))).map(m => normalize(m[2]));
+assert.deepEqual([...main.matchAll(/<strong>([\s\S]*?)<\/strong>/g)].map(m => normalize(m[1])), expectedBold);
+const links = html => [...html.matchAll(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g)].map(m => [m[1], normalize(m[2])]);
+const expectedLinks = links(original).map(([href, label]) => [new URL(href.replace(/&amp;/g, '&')).searchParams.get('q').replace(/^https:\/\/researchhubuk\.github\.io\/researchhubuk\.com\//, '../').replace(/&/g, '&amp;'), label]);
+assert.deepEqual(links(main).slice(1, -1), expectedLinks);
+assert.equal(links(main).at(-1)[0], 'mailto:clients.researchhubuk@gmail.com');
+assert.equal((main.match(/class="btn btn-primary"/g) || []).length, 2);
+assert.match(page, /<header\b/); assert.match(page, /<footer\b/);
+const privacy = fs.readFileSync('privacy-policy/index.html', 'utf8');
+assert.match(privacy, /<main id="main"><\/main>/);
+assert.match(privacy, /<meta name="robots" content="noindex, nofollow">/);
+console.log(`PASS: all body text, headings and bold preserved; source links retained; contact and email buttons; Privacy page settings preserved.`);

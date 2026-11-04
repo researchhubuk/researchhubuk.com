@@ -1,4 +1,21 @@
 /* Keep the requested dark section; other inner-page sections stay white. */
+.legal-page .page-lead{max-width:760px}
+.legal-updated{font-size:.85rem;color:#65738a;margin-bottom:20px}
+.legal-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:56px;align-items:start;margin-top:40px}
+.legal-contents{padding:24px;background:#f3f5fa;border:1px solid #dce2ec;border-radius:12px}
+.legal-contents h2{font-size:1.1rem;margin:0 0 16px}
+.legal-contents ol{padding-left:20px;margin:0}
+.legal-contents li{padding-left:4px;margin-bottom:12px;font-size:.85rem;line-height:1.6}
+.legal-page a:not(.btn){text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+.legal-copy{min-width:0;max-width:880px}
+.legal-section{scroll-margin-top:130px;padding-bottom:26px;margin-bottom:28px;border-bottom:1px solid #dce2ec}
+.legal-section:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.legal-section h2{font-size:clamp(1.3rem,2vw,1.65rem);line-height:1.4;margin-bottom:18px}
+.legal-section p,.legal-section li{font-size:.96rem;line-height:1.9;color:#495a70}
+.legal-section strong{font-weight:700;color:#012169}
+.legal-section li{margin-bottom:12px}
+@media(max-width:991px){.legal-layout{grid-template-columns:1fr;gap:32px}.legal-contents ol{columns:2;column-gap:36px}.legal-contents li{break-inside:avoid}}
+@media(max-width:575px){.legal-contents ol{columns:1}.legal-contents{padding:22px}.legal-layout{margin-top:28px}}
 #main>.section:not(.dark-section){background:#fff}
 .page-intro h1{max-width:850px;font-size:clamp(2.3rem,5vw,4rem);line-height:1.15;letter-spacing:-.04em;margin:0 0 24px}
 .page-lead{max-width:680px;font-size:1.1rem;margin-bottom:28px}
@@ -113,6 +130,27 @@
 #main>.research-includes-section{background:#f0f4fb}
 .subjects-document p a,.subjects-document li a{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .subjects-document strong{font-weight:700}
+.terms-document strong{font-weight:700}
+.terms-document .terms-list-cards{list-style:none;padding:0;margin-block:28px}
+.terms-list-cards .content-card{font-size:.94rem;line-height:1.85}
+.terms-step-cards{counter-reset:terms-step}
+.terms-step-cards .content-card{counter-increment:terms-step}
+.terms-step-cards .content-card::before{content:counter(terms-step,decimal-leading-zero);display:block;color:#c8102e;font-size:.8rem;font-weight:700;margin-bottom:16px}
+.terms-document .terms-paragraph-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.terms-paragraph-cards .content-card:only-child{grid-column:1/-1}
+.terms-split-section>.container{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(0,1.5fr);gap:48px}
+.terms-split-heading h2{margin:0}
+.terms-split-copy{min-width:0;border-left:3px solid #dce2ec;padding-left:28px}
+.terms-policy-stack{display:grid;gap:16px}
+.terms-policy-item{border:1px solid #dce2ec;border-left:3px solid #012169;border-radius:10px;padding:24px;background:#f3f5fa}
+.terms-policy-item p:last-child{margin-bottom:0}
+.terms-document.dark-section .terms-list-cards .content-card{background:#ffffff08;color:#edf3f5;border-color:#ffffff30}
+.terms-document.dark-section strong{color:inherit}
+.terms-document .terms-boundary-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 30px}
+.terms-boundary-list li{border-bottom:1px solid #dce2ec;padding:18px 0 18px 20px;border-left:3px solid #c8102e;margin-bottom:16px}
+.terms-contact-panel{padding:32px;border:1px solid #dce2ec;border-top:4px solid #012169;border-radius:12px;background:#f3f5fa}
+@media(max-width:767px){.terms-split-section>.container{grid-template-columns:1fr;gap:16px}.terms-split-copy{padding-left:20px}.terms-document .terms-paragraph-cards,.terms-document .terms-boundary-list{grid-template-columns:1fr}.terms-contact-panel,.terms-policy-item{padding:22px}}
+.terms-document p a,.terms-document li a{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .subjects-document.dark-section .academic-requirements li{color:#152c29;background:#fafbfe}
 .subjects-document.dark-section .academic-requirements li::before{color:#45651b}
 .subjects-document .document-faq-list summary h3{font-size:inherit!important;line-height:inherit;margin:0}

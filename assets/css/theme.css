@@ -211,6 +211,8 @@ h3:not(:where(.service-card h3,.content-card h3)){font-size:28px!important}
 .hub-footer .footer-bottom{border-color:#dce2ec;gap:24px;align-items:center;color:#65738a;font-size:.73rem}
 .footer-utility{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .footer-utility a:hover{color:#c8102e}
+.hub-footer .footer-legal{display:flex;flex-wrap:wrap;gap:12px 24px}
+.footer-legal a{text-decoration:underline;text-underline-offset:4px;color:#012169}
 .hub-footer .back-top{display:inline-flex;align-items:center;gap:12px;color:#012169;font-weight:650}
 .hub-footer .back-top>span{display:grid;place-items:center;width:30px;height:30px;border:1px solid #cdd6e5;border-radius:50%}
 @media(min-width:1600px){.footer-identity p{max-width:470px}}

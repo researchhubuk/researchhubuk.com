@@ -6,13 +6,16 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  const academic = require('./academic-content.cjs')();
  const subjects = require('./subjects-content.cjs')();
  const research = require('./research-content.cjs')();
+ const legal = require('./legal-content.cjs')();
+ const terms = require('./terms-content.cjs')();
  let source=fs.readFileSync('index.html','utf8');
  source=source.replace(/<section id="services"[\s\S]*?<\/section>/, section => section.replace(/<a class="service-card"[^>]*>([\s\S]*?)<\/a>/g, '<article class="service-card">$1</article>'));
  source=source.replace(/href="(?:\.\/|index\.html)?#services"/g,'href="academic-services/"');
  source=source.replace(/href="(?:\.\/|index\.html)?#subjects"(?=>Subjects)/g,'href="subjects/"');
+ source=source.replace(/href="#contact-us"/g,'href="contact-us/"');
  source=source.replace(/href="(?:\.\/|index\.html)?#speciality"(?=>Research Support)/g,'href="research-support/"');
  source=source.replace('id="contact" class="section contact-section"','id="contact" class="section contact-section home-contact"');
- source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261102-footer-redesign');
+ source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261104-legal-footer');
  source=source.replaceAll('href="#why-us">About Us','href="about.html">About Us').replaceAll('href="#contact">Contact</a>','href="contact.html">Contact</a>').replaceAll('href="#contact">Send Your Requirements','href="contact.html">Send Your Requirements');
  let footer=require('./footer-content.cjs')();
  footer=footer.replace(/href="(?:\.\/|index\.html)?#subjects"(?=>Subjects)/g,'href="subjects/"');
@@ -20,15 +23,17 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  source=source.slice(0,source.indexOf('<footer'))+footer;
  const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#').replace(/<a class="btn btn-primary" href="[^"]*">Call for Your Support/g, '<a class="btn btn-primary" href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer">Call for Your Support');
  fs.writeFileSync('index.html',cleanLinks(source));
- let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261102-research-backgrounds">\n</head>');
+ let shell=source.slice(0,source.indexOf('<main')).replaceAll(' aria-current="page"','').replace(/\s*<link rel="preload" as="image"[^>]+>/g,'').replace('</head>','<link rel="stylesheet" href="assets/css/pages.css?v=20261104-legal-pages">\n</head>');
  const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace(' home-contact','').replace('href="#requirements"','href="#contact-details"');
  for(const [filename,title,description,content] of [
  ['academic-services.html','Academic Services',academic.description,academic.html],
  ['subjects.html','Subjects',subjects.description,subjects.html],
  ['research-support.html','Research Support',research.description,research.html],
  ['about.html','About Us',documentAbout.description,documentAbout.html],
+ ['privacy-policy.html','Privacy Policy',legal.privacy.description,''],
+ ['terms-and-conditions.html','Terms and Conditions',terms.description,terms.html],
  ['contact.html','Contact','Contact Research Hub UK by email or WhatsApp to discuss your assignment, dissertation or research requirements.',intro+contact+outro]]){
- const slug=['academic-services.html','research-support.html','subjects.html'].includes(filename) ? filename.replace('.html','') : filename.replace('.html','-us');
+ const slug=['about.html','contact.html'].includes(filename) ? filename.replace('.html','-us') : filename.replace('.html','');
  let head=shell.replace(/<title>[\s\S]*?<\/title>/,`<title>${title} | Research Hub UK</title>`)
  .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)"\s+content=")[^"]*/g,`$1${description}`)
  .replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g,`$1${title} | Research Hub UK`)
@@ -46,6 +51,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  if(filename === 'subjects.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
  if(filename === 'research-support.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
  if(['academic-services.html','research-support.html','subjects.html'].includes(filename)) head=head.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, follow">');
+ if(filename === 'privacy-policy.html') head=head.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
  let page=head+'<main id="main">'+content+'</main>'+footer;
  page=page.replace(/href="#(services|speciality|subjects|faqs)"/g,'href="index.html#$1"');
  page=cleanLinks(page);
@@ -59,6 +65,6 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  });
  fs.writeFileSync(`${directory}/index.html`,directoryPage);
  }
- fs.writeFileSync('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['','academic-services/','subjects/','research-support/','about-us/','contact-us/'].map(n=>`<url><loc>https://researchhubuk.com/${n}</loc></url>`).join('')+'</urlset>\n');
+ fs.writeFileSync('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['','academic-services/','subjects/','research-support/','about-us/','contact-us/','terms-and-conditions/'].map(n=>`<url><loc>https://researchhubuk.com/${n}</loc></url>`).join('')+'</urlset>\n');
  console.log('Built Academic Services, Subjects, Research Support, About Us and Contact pages with homepage header and footer.');
 })();
