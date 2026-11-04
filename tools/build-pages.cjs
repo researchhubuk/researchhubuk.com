@@ -45,6 +45,7 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  head=head.replace(`class="nav-link" href="${filename.replace('.html','-us/')}"`,`class="nav-link" href="${filename.replace('.html','-us/')}" aria-current="page"`);
  if(filename === 'academic-services.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${academic.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${academic.title}`);
  if(filename === 'subjects.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${subjects.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${subjects.title}`);
+ if(filename === 'terms-and-conditions.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${terms.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${terms.title}`);
  if(filename === 'research-support.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${research.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${research.title}`);
  if(filename === 'about.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${documentAbout.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${documentAbout.title}`);
  if(filename === 'academic-services.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
