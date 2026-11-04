@@ -36,7 +36,9 @@ async function main(){
  await page.setViewportSize({width:390,height:844});
  await page.locator('.navbar-toggler').click();
  await page.locator('#navigation').waitFor({state:'visible'});
- await page.locator('#navigation a[href="#subjects"]').click();
+ await page.locator('#navigation a[href="subjects/"]').click();
+ await page.waitForURL('**/subjects/');
+ await page.goto('http://localhost/researchhubuk/',{waitUntil:'networkidle'});
  await page.waitForTimeout(900);
  assert.equal(await page.locator('#navigation').isVisible(),false);
  await page.locator('.faq-list summary').first().click();

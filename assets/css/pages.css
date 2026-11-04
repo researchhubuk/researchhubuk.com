@@ -111,5 +111,10 @@
 .academic-document.dark-section .academic-support-list li{background:#ffffff05}
 .academic-document.dark-section .academic-layout-cards .content-card:hover{border-color:#ffffff70}
 #main>.research-includes-section{background:#f0f4fb}
+.subjects-document p a,.subjects-document li a{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.subjects-document strong{font-weight:700}
+.subjects-document.dark-section .academic-requirements li{color:#152c29;background:#fafbfe}
+.subjects-document.dark-section .academic-requirements li::before{color:#45651b}
+.subjects-document .document-faq-list summary h3{font-size:inherit!important;line-height:inherit;margin:0}
 .research-includes-section .academic-support-list li{background:#fff;border-color:#dce3ee}
 @media(max-width:767px){.academic-support-list li{padding:22px 20px 22px 46px}.academic-support-list li:before{left:18px;top:23px}}

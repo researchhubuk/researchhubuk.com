@@ -4,15 +4,18 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
 (function buildPages(){
  const documentAbout = require('./about-content.cjs')();
  const academic = require('./academic-content.cjs')();
+ const subjects = require('./subjects-content.cjs')();
  const research = require('./research-content.cjs')();
  let source=fs.readFileSync('index.html','utf8');
  source=source.replace(/<section id="services"[\s\S]*?<\/section>/, section => section.replace(/<a class="service-card"[^>]*>([\s\S]*?)<\/a>/g, '<article class="service-card">$1</article>'));
  source=source.replace(/href="(?:\.\/|index\.html)?#services"/g,'href="academic-services/"');
+ source=source.replace(/href="(?:\.\/|index\.html)?#subjects"(?=>Subjects)/g,'href="subjects/"');
  source=source.replace(/href="(?:\.\/|index\.html)?#speciality"(?=>Research Support)/g,'href="research-support/"');
  source=source.replace('id="contact" class="section contact-section"','id="contact" class="section contact-section home-contact"');
  source=source.replace(/assets\/css\/theme\.css(?:\?[^"\s]*)?/g,'assets/css/theme.css?v=20261102-footer-redesign');
  source=source.replaceAll('href="#why-us">About Us','href="about.html">About Us').replaceAll('href="#contact">Contact</a>','href="contact.html">Contact</a>').replaceAll('href="#contact">Send Your Requirements','href="contact.html">Send Your Requirements');
  let footer=require('./footer-content.cjs')();
+ footer=footer.replace(/href="(?:\.\/|index\.html)?#subjects"(?=>Subjects)/g,'href="subjects/"');
  if(!footer.includes('>About Us</a>')) footer=footer.replace('<a href="contact.html">Contact','<a href="about.html">About Us</a><a href="contact.html">Contact');
  source=source.slice(0,source.indexOf('<footer'))+footer;
  const cleanLinks = html => html.replace(/(href|content)="([^"\s#]*?)(about|contact)(?:\.html|-us\/?)?"/g, '$1="$2$3-us/"').replace(/href="index\.html#/g, 'href="./#').replace(/<a class="btn btn-primary" href="[^"]*">Call for Your Support/g, '<a class="btn btn-primary" href="https://wa.me/8801313633953" target="_blank" rel="noopener noreferrer">Call for Your Support');
@@ -21,10 +24,11 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  const contact=source.match(/<section id="contact"[\s\S]*?<\/section>/)[0].replace(' home-contact','').replace('href="#requirements"','href="#contact-details"');
  for(const [filename,title,description,content] of [
  ['academic-services.html','Academic Services',academic.description,academic.html],
+ ['subjects.html','Subjects',subjects.description,subjects.html],
  ['research-support.html','Research Support',research.description,research.html],
  ['about.html','About Us',documentAbout.description,documentAbout.html],
  ['contact.html','Contact','Contact Research Hub UK by email or WhatsApp to discuss your assignment, dissertation or research requirements.',intro+contact+outro]]){
- const slug=['academic-services.html','research-support.html'].includes(filename) ? filename.replace('.html','') : filename.replace('.html','-us');
+ const slug=['academic-services.html','research-support.html','subjects.html'].includes(filename) ? filename.replace('.html','') : filename.replace('.html','-us');
  let head=shell.replace(/<title>[\s\S]*?<\/title>/,`<title>${title} | Research Hub UK</title>`)
  .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)"\s+content=")[^"]*/g,`$1${description}`)
  .replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g,`$1${title} | Research Hub UK`)
@@ -35,11 +39,13 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  head=head.replace(`class="nav-link" href="${filename.replace('.html','-us')}"`,`class="nav-link" href="${filename.replace('.html','-us')}" aria-current="page"`);
  head=head.replace(`class="nav-link" href="${filename.replace('.html','-us/')}"`,`class="nav-link" href="${filename.replace('.html','-us/')}" aria-current="page"`);
  if(filename === 'academic-services.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${academic.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${academic.title}`);
+ if(filename === 'subjects.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${subjects.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${subjects.title}`);
  if(filename === 'research-support.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${research.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${research.title}`);
  if(filename === 'about.html') head=head.replace(/<title>[\s\S]*?<\/title>/, `<title>${documentAbout.title}</title>`).replace(/(<meta (?:name|property)="(?:og:title|twitter:title)"\s+content=")[^"]*/g, `$1${documentAbout.title}`);
  if(filename === 'academic-services.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
+ if(filename === 'subjects.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
  if(filename === 'research-support.html') head=head.replace(`class="nav-link" href="${slug}/"`, `class="nav-link" href="${slug}/" aria-current="page"`);
- if(['academic-services.html','research-support.html'].includes(filename)) head=head.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, follow">');
+ if(['academic-services.html','research-support.html','subjects.html'].includes(filename)) head=head.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, follow">');
  let page=head+'<main id="main">'+content+'</main>'+footer;
  page=page.replace(/href="#(services|speciality|subjects|faqs)"/g,'href="index.html#$1"');
  page=cleanLinks(page);
@@ -53,6 +59,6 @@ const outro = "<section id=\"contact-details\" class=\"section\"><div class=\"co
  });
  fs.writeFileSync(`${directory}/index.html`,directoryPage);
  }
- fs.writeFileSync('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['','academic-services/','research-support/','about-us/','contact-us/'].map(n=>`<url><loc>https://researchhubuk.com/${n}</loc></url>`).join('')+'</urlset>\n');
- console.log('Built Academic Services, Research Support, About Us and Contact pages with homepage header and footer.');
+ fs.writeFileSync('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['','academic-services/','subjects/','research-support/','about-us/','contact-us/'].map(n=>`<url><loc>https://researchhubuk.com/${n}</loc></url>`).join('')+'</urlset>\n');
+ console.log('Built Academic Services, Subjects, Research Support, About Us and Contact pages with homepage header and footer.');
 })();
