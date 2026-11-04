@@ -18,7 +18,6 @@ module.exports = () => {
   if (tag !== 'a') return `<${tag}>`;
   let href = (attributes.match(/href="([^"]*)"/)?.[1] || '').replace(/&amp;/g, '&');
   if (href.startsWith('https://www.google.com/url?')) href = new URL(href).searchParams.get('q');
-  href = href.replace(/^https:\/\/researchhubuk\.github\.io\/researchhubuk\.com\//, './');
   return `<a href="${href.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">`;
  });
  body = body.replace(/<p>([\s\S]*?)<\/p>/g, (block, inner) => {
@@ -26,7 +25,7 @@ module.exports = () => {
   if (!plain(inner).startsWith('Button:')) return block;
   const link = inner.match(/<a href="([^"]*)">([\s\S]*?)<\/a>/);
   if (!link) throw new Error('Missing terms button destination');
-  return `<div class="page-actions"><a class="btn btn-primary" href="${link[1]}">${plain(link[2])}</a></div>`;
+  return `<div class="page-actions"><a class="btn btn-primary" href="${link[1]}"><strong>${plain(link[2])}</strong></a></div>`;
  });
  // Match Research Support's mix of cards, steps, checklists and dark panels.
  // Keep the source's wording, order, bold spans and heading levels intact.
