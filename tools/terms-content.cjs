@@ -27,6 +27,8 @@ module.exports = () => {
   if (!link) throw new Error('Missing terms button destination');
   return `<div class="page-actions"><a class="btn btn-primary" href="${link[1]}"><strong>${plain(link[2])}</strong></a></div>`;
  });
+ // Preserve the spacing explicitly requested in the user's source comparison.
+ body = body.replace('clients.researchhubuk@gmail.com, order details', 'clients.researchhubuk@gmail.com , order details');
  // Match Research Support's mix of cards, steps, checklists and dark panels.
  // Keep the source's wording, order, bold spans and heading levels intact.
  const cardLists = new Set(['About Research Hub UK', 'Enquiries and Service Requests', 'Service Availability and Scope']);
